@@ -762,15 +762,16 @@ class Doku_Renderer_xhtml extends Doku_Renderer {
             $link['class']='media';
         }
 
-        $address = $this->_xmlEntities($address);
+        if($conf['mailguard'] != 'hex') {
+            $address = $this->_xmlEntities($address);
+        }
+
         $address = obfuscate($address);
         $title   = $address;
 
         if(empty($name)){
             $name = $address;
         }
-
-        if($conf['mailguard'] == 'visible') $address = rawurlencode($address);
 
         $link['url']   = 'mailto:'.$address;
         $link['name']  = $name;
